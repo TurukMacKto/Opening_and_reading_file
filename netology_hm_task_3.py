@@ -32,19 +32,21 @@ def sorting():
     sorted_list = {}
     dir_ = os.getcwd()
     for items in os.listdir(dir_):
-        with open(items, 'r+', encoding='utf-8') as fd:
+        with open(items, 'r+') as fd:
             common_list = fd.read().splitlines()
             str_len = len(common_list)
             sorted_list.update({str_len: [fd.name, str_len, common_list]})
     return sorted(sorted_list.values(), key=lambda x: x[2], reverse=True)
 
 
-def created():
-    with open('new_text.txt', 'w+', encoding='utf-8') as newfile:
+def created(created_file):
+    with open(created_file + '.txt', 'w+') as newfile:
         for file in sorting():
             newfile.write(f'{file[0]}\n')
             newfile.write(f'{file[1]}\n')
             for string in file[2]:
                 newfile.write(string + '\n')
             newfile.write('-------------------\n')
-    return created()
+
+
+created('new_text')
